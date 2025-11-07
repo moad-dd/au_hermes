@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Register - AU HERMES{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    background-color: var(--au-bg);
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    position: relative;
+    overflow-x: hidden;
+  }
+  .au-bg-shapes {
+    position: absolute;
+    top: 0; left: 0; width: 100vw; height: 180px; z-index: 0;
+    pointer-events: none;
+  }
+  .auth-container {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    animation: fadeIn 1.2s ease;
+    position: relative;
+    z-index: 1;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .auth-card {
+    background: #fff;
+    padding: 44px 36px 36px 36px;
+    border-radius: 22px;
+    box-shadow: 0 8px 32px rgba(44,83,100,0.10);
+    max-width: 410px;
+    width: 100%;
+    border: 1px solid #e3eaf2;
+  }
+  .auth-title {
+    color: var(--au-primary);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-size: 1.7rem;
+  }
+  .form-control {
+    border-radius: 12px;
+    border: 1px solid #b2bec3;
+    font-size: 1.05rem;
+  }
+  .form-floating label {
+    color: var(--au-primary);
+    font-weight: 500;
+  }
+  .btn-primary {
+    background-color: var(--au-accent);
+    border: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-radius: 999px;
+    box-shadow: 0 2px 8px rgba(44,83,100,0.10);
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover {
+    background-color: var(--au-primary);
+    box-shadow: 0 4px 16px rgba(44,83,100,0.18);
+  }
+  .text-muted {
+    color: #6c7a89 !important;
+  }
+</style>
+<svg class="au-bg-shapes" width="100%" height="180" viewBox="0 0 1440 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0,80 Q720,180 1440,80 L1440,0 L0,0 Z" fill="#1F4E79" opacity="0.08"/>
+  <circle cx="1200" cy="60" r="40" fill="#0D6EFD" opacity="0.12"/>
+  <circle cx="200" cy="120" r="30" fill="#0D6EFD" opacity="0.10"/>
+</svg>
+
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="text-center mb-4">
+      <i class="bi bi-person-plus-fill" style="font-size: 4rem; color: #1e3c72;"></i>
+      <h3 class="auth-title mt-3">Create Account <span style="font-size:1.3rem;">✨</span></h3>
+    </div>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+  <button type="submit" class="btn btn-primary w-100 py-2 mt-2">Register</button>
+    </form>
+    <div class="text-center mt-3">
+      <p class="text-muted">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}

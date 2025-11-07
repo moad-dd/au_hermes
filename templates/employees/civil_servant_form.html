@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} - AU HERMES{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-sm border-0" style="border-radius: 15px;">
+        <div class="card-body p-4">
+          <h3 class="text-center mb-4">{{ title }}</h3>
+          
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row g-3">
+              {% for field in form %}
+              <div class="col-md-6">
+                <label class="form-label fw-semibold">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                <div class="text-danger small mt-1">
+                  {{ field.errors|striptags }}
+                </div>
+                {% endif %}
+              </div>
+              {% endfor %}
+            </div>
+            
+            <div class="d-flex gap-2 justify-content-center mt-4">
+              <button type="submit" class="btn btn-primary px-4">
+                <i class="bi bi-save"></i> {{ button_text|default:"Save" }}
+              </button>
+              <a href="{% url 'staff:civil_servants_list' %}" class="btn btn-outline-secondary px-4">
+                <i class="bi bi-arrow-left"></i> Back
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

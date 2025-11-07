@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Leave - AU HERMES{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm border-0" style="border-radius: 15px;">
+        <div class="card-body p-4">
+          <h3 class="text-center mb-4">
+            🏖 Add Leave Record
+          </h3>
+          <p class="text-center text-muted mb-4">
+            Employee: <strong>{{ fonctionnaire.nom }} {{ fonctionnaire.prenom }}</strong>
+          </p>
+
+          <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            
+            <div class="d-flex gap-2 justify-content-center mt-4">
+              <button type="submit" class="btn btn-success px-4">
+                <i class="bi bi-save"></i> Save
+              </button>
+              <a href="{% url 'civil_servant_detail' fonctionnaire.id %}" class="btn btn-secondary px-4">
+                <i class="bi bi-x-circle"></i> Cancel
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

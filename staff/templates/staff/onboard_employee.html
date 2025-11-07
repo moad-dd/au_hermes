@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Onboard as Admin Staff - AU HERMES{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+      <div class="card shadow-sm border-0">
+        <div class="card-header bg-white text-center">
+          <h3 class="fw-bold" style="color:var(--au-primary);">Admin Staff Onboarding</h3>
+          <p class="text-muted mb-0">Complete your profile to access Administrative Staff Services.</p>
+        </div>
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="position" class="form-label">Position</label>
+              <input type="text" class="form-control" id="position" name="position" required placeholder="e.g. HR Manager">
+            </div>
+            <div class="mb-3">
+              <label for="department" class="form-label">Department</label>
+              <input type="text" class="form-control" id="department" name="department" placeholder="e.g. Human Resources">
+            </div>
+            <div class="mb-3">
+              <label for="base_salary" class="form-label">Base Salary</label>
+              <input type="number" class="form-control" id="base_salary" name="base_salary" min="0" step="0.01" required placeholder="e.g. 5000">
+            </div>
+            <div class="mb-3">
+              <label for="bonus" class="form-label">Bonus</label>
+              <input type="number" class="form-control" id="bonus" name="bonus" min="0" step="0.01" value="0">
+            </div>
+            <div class="mb-3">
+              <label for="deductions" class="form-label">Deductions</label>
+              <input type="number" class="form-control" id="deductions" name="deductions" min="0" step="0.01" value="0">
+            </div>
+            <button type="submit" class="btn btn-au-primary w-100">Complete Onboarding</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

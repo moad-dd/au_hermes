@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Salary Slip - AU HERMES{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-lg border-0" style="border-radius: 15px;">
+        <div class="card-header bg-primary text-white text-center py-3">
+          <h3 class="mb-0">Salary Slip</h3>
+        </div>
+        <div class="card-body p-4">
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <h5 class="text-muted">Employee Information</h5>
+              <p class="mb-1"><strong>Name:</strong> {{ employee.user.get_full_name|default:employee.user.username }}</p>
+              <p class="mb-1"><strong>Position:</strong> {{ employee.position }}</p>
+              <p class="mb-1"><strong>Department:</strong> {{ employee.department|default:"N/A" }}</p>
+            </div>
+            <div class="col-md-6 text-end">
+              <h5 class="text-muted">Payment Details</h5>
+              <p class="mb-1"><strong>Month:</strong> {{ current_month|default:"Current Month" }}</p>
+              <p class="mb-1"><strong>Payment Date:</strong> {{ payment_date|default:"End of Month" }}</p>
+            </div>
+          </div>
+
+          <table class="table table-bordered">
+            <thead class="table-light">
+              <tr>
+                <th>Description</th>
+                <th class="text-end">Amount (DA)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Base Salary</td>
+                <td class="text-end">{{ employee.base_salary|floatformat:2 }}</td>
+              </tr>
+              <tr>
+                <td>Bonus</td>
+                <td class="text-end text-success">+ {{ employee.bonus|floatformat:2 }}</td>
+              </tr>
+              <tr>
+                <td>Deductions</td>
+                <td class="text-end text-danger">- {{ employee.deductions|floatformat:2 }}</td>
+              </tr>
+              <tr class="table-primary fw-bold">
+                <td>Net Salary</td>
+                <td class="text-end">{{ employee.total_salary|floatformat:2 }} DA</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="text-center mt-4">
+            <button onclick="window.print()" class="btn btn-primary">
+              <i class="bi bi-printer"></i> Print Slip
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

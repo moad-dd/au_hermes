@@ -1,0 +1,41 @@
+# Python
+*.pyc
+*~
+__pycache__
+myvenv/
+venv/
+env/
+.env
+.DS_Store
+.mypy_cache
+.pytest_cache
+
+# Django
+*.log
+*.sqlite3
+db.sqlite3
+/media
+/static_root/
+
+# Compiled files
+# If you run `collectstatic` locally, the collected files should usually be ignored.
+# The actual name of your static collection directory might vary (e.g., 'staticfiles').
+staticfiles/
+
+# System/IDE Files
+.idea/
+.vscode/
+.history/
+Thumbs.db
+Desktop.ini
+
+# Specific to your local machine (may contain sensitive keys)
+# If you have a separate local settings file, ignore it.
+# e.g., config/local_settings.py (if you use this pattern)
+# config/settings_local.py
+# .secrets.ini
+
+# Files you uploaded/created
+# Ignoring the file dump you provided, as it's not source code.
+project_dump.txt
+getAllProject.py # If you don't want to track this helper script

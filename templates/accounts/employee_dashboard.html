@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Dashboard - AU HERMES{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <!-- Hero Section -->
+  <div class="row align-items-center mb-5">
+    <div class="col-lg-7">
+      <h1 class="display-5 fw-bold mb-3" style="color: var(--au-primary);">
+        Welcome, {{ user.first_name|default:user.username }}!
+      </h1>
+      <p class="lead text-muted mb-4">
+        Your professional dashboard for managing civil servants and administrative staff.<br>
+        Access all HR features, track progress, and stay organized with AU HERMES.
+      </p>
+      <div class="d-flex gap-3">
+        <a href="{% url 'staff:user_space' %}" class="btn btn-au-primary btn-lg shadow">
+          <i class="bi bi-people-fill me-2"></i> Civil Servants
+        </a>
+        <a href="{% url 'staff:ats_space' %}" class="btn btn-outline-primary btn-lg shadow">
+          <i class="bi bi-briefcase-fill me-2"></i> Admin Staff
+        </a>
+      </div>
+    </div>
+    <div class="col-lg-5 text-center">
+      <img src="{% static 'images/dashboard-hero.svg' %}" alt="Dashboard" class="img-fluid mb-3" style="max-height: 260px;">
+    </div>
+  </div>
+
+  <!-- Feature Cards -->
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-header bg-white text-center">
+          <i class="bi bi-person-circle" style="font-size: 2.5rem; color: var(--au-primary);"></i>
+        </div>
+        <div class="card-body text-center">
+          <h5 class="fw-semibold mb-2">User Space</h5>
+          <p class="text-muted mb-3">Manage civil servants, view details, and update records.</p>
+          <a href="{% url 'staff:user_space' %}" class="btn btn-au-primary btn-sm">Go to User Space</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-header bg-white text-center">
+          <i class="bi bi-gear-fill" style="font-size: 2.5rem; color: var(--au-accent);"></i>
+        </div>
+        <div class="card-body text-center">
+          <h5 class="fw-semibold mb-2">ATS Space</h5>
+          <p class="text-muted mb-3">Access administrative staff features and tools.</p>
+          <a href="{% url 'staff:ats_space' %}" class="btn btn-outline-primary btn-sm">Go to ATS Space</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-header bg-white text-center">
+          <i class="bi bi-bar-chart-line-fill" style="font-size: 2.5rem; color: var(--au-muted);"></i>
+        </div>
+        <div class="card-body text-center">
+          <h5 class="fw-semibold mb-2">Reports & Analytics</h5>
+          <p class="text-muted mb-3">View HR statistics, salary reports, and career progress.</p>
+          <a href="#" class="btn btn-outline-secondary btn-sm disabled">Coming Soon</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

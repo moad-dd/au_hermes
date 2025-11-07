@@ -1,0 +1,365 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AU HERMES{% endblock %}</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    
+    <style>
+        /* Professional color palette variables */
+        :root {
+            --au-primary: #1F4E79;    /* deep navy blue */
+            --au-accent: #0D6EFD;     /* bootstrap-like accent */
+            --au-muted: #6C757D;      /* muted gray */
+            --au-bg: #f5f7fa;         /* subtle off-white background */
+            --au-footer: #0b2a3b;     /* dark muted navy for footer */
+            --au-text: #212529;       /* default body text */
+        }
+
+        body {
+            background-color: var(--au-bg);
+            color: var(--au-text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+        }
+
+        .content-container {
+            flex: 1;
+            padding: 24px 0;
+        }
+
+        /* Navbar overrides to use project palette */
+        .navbar.au-brand, .navbar-brand {
+            color: #fff !important;
+        }
+
+        .navbar {
+            background-color: var(--au-primary) !important;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 8px rgba(31,78,121,0.06);
+        }
+
+        .navbar .nav-link {
+            color: rgba(255,255,255,0.95) !important;
+        }
+
+        .navbar .nav-link:hover {
+            color: #ffffff !important;
+            opacity: 0.95;
+        }
+
+        /* Make primary calls-to-action use the accent color */
+        .btn-au-primary {
+            background-color: var(--au-accent);
+            border-color: var(--au-accent);
+            color: #fff;
+        }
+
+        .btn-au-outline-light,
+        .btn-outline-light {
+            color: #fff !important;
+            border-color: rgba(255,255,255,0.55) !important;
+        }
+
+        /* Toasts adjustments */
+        .toast {
+            border-radius: 14px !important;
+            box-shadow: 0 4px 24px rgba(31,78,121,0.12) !important;
+            border: 1px solid var(--au-accent) !important;
+            background: #fff !important;
+            color: var(--au-text) !important;
+            min-width: 280px;
+            max-width: 350px;
+            padding: 0.75rem 1.2rem;
+        }
+        .toast-body {
+            color: var(--au-text);
+            font-size: 1.08rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .toast .bi {
+            font-size: 1.3rem;
+            color: var(--au-accent);
+            margin-right: 6px;
+        }
+        .toast .btn-close {
+            filter: none !important;
+        }
+
+        footer {
+            background-color: var(--au-primary);
+            color: #fff;
+            font-size: 1rem;
+            text-align: center;
+            padding: 18px 0;
+            width: 100%;
+            margin-top: auto;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 -1px 6px rgba(31,78,121,0.04);
+        }
+
+        footer i {
+            color: #e9f0f6;
+            margin-right: 6px;
+        }
+        
+        /* Cards */
+        .card {
+            border: 1px solid rgba(31,78,121,0.12);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(16,24,32,0.04);
+        }
+
+        .card-header {
+            background-color: rgba(31,78,121,0.06);
+            color: var(--au-primary);
+            font-weight: 600;
+            border-bottom: 1px solid rgba(31,78,121,0.08);
+        }
+
+        .card-body {
+            background-color: #fff;
+        }
+
+        /* Tables - Primary Color Theme */
+        table.table {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--au-primary);
+            box-shadow: 0 1px 6px rgba(31,78,121,0.04);
+        }
+
+        table.table thead th {
+            background-color: var(--au-primary);
+            color: #fff;
+            border-bottom: 2px solid var(--au-accent);
+            font-weight: 600;
+            font-size: 1.05rem;
+            letter-spacing: 0.2px;
+        }
+
+        table.table tbody tr {
+            transition: background 0.2s;
+        }
+        table.table tbody tr:hover {
+            background-color: var(--au-accent);
+            color: #fff;
+        }
+
+        table.table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(31,78,121,0.06);
+        }
+
+        table.table td, table.table th {
+            border-right: 1px solid var(--au-primary);
+        }
+        table.table td:last-child, table.table th:last-child {
+            border-right: none;
+        }
+
+        /* Forms */
+        .form-control:focus {
+            box-shadow: 0 0 0 0.15rem rgba(13,110,253,0.15);
+            border-color: var(--au-accent);
+        }
+
+        .form-label {
+            color: var(--au-muted);
+            font-weight: 600;
+        }
+
+        /* Buttons & badges */
+        .btn-au-primary, .btn-primary {
+            background-color: var(--au-accent) !important;
+            border-color: var(--au-accent) !important;
+        }
+
+        .btn-au-secondary, .btn-secondary {
+            background-color: #eceff4;
+            color: var(--au-text);
+            border-color: #e6e9ee;
+        }
+
+        .badge-au {
+            background-color: var(--au-primary);
+            color: #fff;
+        }
+
+        /* Breadcrumbs */
+        .breadcrumb {
+            background: transparent;
+            padding: 0;
+            margin-bottom: 0.75rem;
+        }
+
+        .breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+            color: var(--au-muted);
+        }
+
+        /* Pagination */
+        .pagination .page-link {
+            color: var(--au-primary);
+            border-radius: 6px;
+        }
+
+        .pagination .active .page-link {
+            background-color: var(--au-accent) !important;
+            border-color: var(--au-accent) !important;
+            color: #fff !important;
+        }
+
+        /* Links */
+        a, a:hover {
+            color: var(--au-primary);
+        }
+
+        /* Small utility tweaks */
+        .table-responsive { background: transparent; }
+        .text-muted { color: var(--au-muted) !important; }
+        .card .btn { margin-right: 6px; }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navbar (always shown) -->
+    <nav class="navbar navbar-expand-lg shadow-sm" style="background: linear-gradient(90deg, var(--au-primary) 60%, var(--au-accent) 100%); border-radius: 0 0 18px 18px; box-shadow: 0 4px 18px rgba(31,78,121,0.10);">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="{% url 'employee_dashboard' %}" style="color: #fff;">
+                <!-- Modern SVG Logo -->
+                <span style="display:inline-block;vertical-align:middle;">
+                  <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="8" width="32" height="20" rx="5" fill="#0D6EFD"/>
+                    <rect x="8" y="14" width="20" height="8" rx="3" fill="#1F4E79"/>
+                    <rect x="14" y="18" width="8" height="4" rx="2" fill="#fff"/>
+                  </svg>
+                </span>
+                <span class="fs-4" style="letter-spacing:1px;">AU HERMES</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'employee_dashboard' %}" style="color: #e9f0f6;">
+                            <i class="bi bi-house-door"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                                                <a class="nav-link" href="{% url 'staff:civil_servants_list' %}" style="color: #e9f0f6;">
+                            <i class="fas fa-users"></i>
+                            Fonctionnaires
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'staff:list_ats' %}" style="color: #e9f0f6;">
+                            <i class="bi bi-briefcase"></i> Admin Staff
+                        </a>
+                    </li>
+                </ul>
+                <!-- User menu -->
+                <div class="dropdown">
+                    <button class="btn btn-outline-light dropdown-toggle" type="button" 
+                            id="userMenu" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle"></i> {{ user.username }}
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="{% url 'edit_account' %}">
+                                <i class="bi bi-pencil-square"></i> Edit Profile
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item text-danger" href="{% url 'logout' %}">
+                                <i class="bi bi-box-arrow-right"></i> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+        <!-- Decorative SVG background shapes -->
+            <svg class="au-bg-shapes" width="100%" height="180" viewBox="0 0 1440 180" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;z-index:-1;">
+                <g style="pointer-events:none;">
+                    <path d="M0,80 Q720,180 1440,80 L1440,0 L0,0 Z" fill="#1F4E79" opacity="0.08"/>
+                    <circle cx="1200" cy="60" r="40" fill="#0D6EFD" opacity="0.12"/>
+                    <circle cx="200" cy="120" r="30" fill="#0D6EFD" opacity="0.10"/>
+                </g>
+            </svg>
+    
+    <!-- Toast Messages -->
+    {% if messages %}
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 1100;">
+        {% for message in messages %}
+        <div class="toast align-items-center show fade mb-2"
+             role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body fw-semibold">
+                    {% if message.tags == 'success' %}<i class="bi bi-check-circle-fill"></i>{% endif %}
+                    {% if message.tags == 'error' or message.tags == 'danger' %}<i class="bi bi-x-circle-fill"></i>{% endif %}
+                    {% if message.tags == 'warning' %}<i class="bi bi-exclamation-triangle-fill"></i>{% endif %}
+                    {% if message.tags == 'info' %}<i class="bi bi-info-circle-fill"></i>{% endif %}
+                    {{ message }}
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <!-- Main Content -->
+    <main class="content-container" style="position:relative;z-index:1;">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    {% if show_footer %}
+    <footer>
+        <div class="container">
+            <p class="mb-1">
+                <i class="bi bi-geo-alt-fill"></i> 
+                AU HERMES - Human Resources Management System
+            </p>
+            <p class="mb-1">
+                <i class="bi bi-envelope-fill"></i> 
+                Email: contact@auhermes.com
+            </p>
+            <p class="mb-0">
+                <i class="bi bi-telephone-fill"></i> 
+                Phone: +212 13 99 10 00
+            </p>
+        </div>
+    </footer>
+    {% endif %}
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Auto-show toasts
+        document.addEventListener("DOMContentLoaded", function() {
+            const toasts = document.querySelectorAll('.toast');
+            toasts.forEach(toast => new bootstrap.Toast(toast).show());
+        });
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

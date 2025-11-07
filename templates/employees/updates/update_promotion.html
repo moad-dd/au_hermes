@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Promotion - AU HERMES{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm border-0" style="border-radius: 15px;">
+        <div class="card-body p-4">
+          <h3 class="text-center mb-4">
+            ⬆️ Update Promotion
+          </h3>
+          <p class="text-center text-muted mb-4">
+            Employee: <strong>{{ fonctionnaire.nom }} {{ fonctionnaire.prenom }}</strong>
+          </p>
+
+          <form method="POST">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+              <label for="{{ form.date_promotion.id_for_label }}" class="form-label fw-semibold">
+                Promotion Date
+              </label>
+              {{ form.date_promotion }}
+              {% if form.date_promotion.errors %}
+                <div class="text-danger small mt-1">{{ form.date_promotion.errors|striptags }}</div>
+              {% endif %}
+            </div>
+
+            <div class="mb-3">
+              <label for="{{ form.ancien_grade.id_for_label }}" class="form-label fw-semibold">
+                Previous Grade
+              </label>
+              {{ form.ancien_grade }}
+              {% if form.ancien_grade.errors %}
+                <div class="text-danger small mt-1">{{ form.ancien_grade.errors|striptags }}</div>
+              {% endif %}
+            </div>
+
+            <div class="mb-3">
+              <label for="{{ form.nouveau_grade.id_for_label }}" class="form-label fw-semibold">
+                New Grade
+              </label>
+              {{ form.nouveau_grade }}
+              {% if form.nouveau_grade.errors %}
+                <div class="text-danger small mt-1">{{ form.nouveau_grade.errors|striptags }}</div>
+              {% endif %}
+            </div>
+
+            <div class="mb-3">
+              <label for="{{ form.observation.id_for_label }}" class="form-label fw-semibold">
+                Observations (Optional)
+              </label>
+              {{ form.observation }}
+              {% if form.observation.errors %}
+                <div class="text-danger small mt-1">{{ form.observation.errors|striptags }}</div>
+              {% endif %}
+            </div>
+            
+            <div class="d-flex gap-2 justify-content-center mt-4">
+              <button type="submit" class="btn btn-success px-4">
+                <i class="bi bi-save"></i> Save Promotion
+              </button>
+              <a href="{% url 'civil_servant_detail' fonctionnaire.id %}" class="btn btn-secondary px-4">
+                <i class="bi bi-x-circle"></i> Cancel
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ fonctionnaire.nom }} {{ fonctionnaire.prenom }} - AU HERMES{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3">
+      <div class="card shadow-sm border-0 mb-3" style="border-radius: 15px;">
+        <div class="card-body text-center p-4">
+          {% if fonctionnaire.photo %}
+          <img src="{{ fonctionnaire.photo.url }}" alt="Photo" class="rounded-circle mb-3" style="width: 120px; height: 120px; object-fit: cover;">
+          {% else %}
+          <i class="bi bi-person-circle" style="font-size: 6rem; color: #6c757d;"></i>
+          {% endif %}
+          <h5 class="fw-bold">{{ fonctionnaire.nom }} {{ fonctionnaire.prenom }}</h5>
+          <p class="text-muted mb-0">{{ fonctionnaire.grade }}</p>
+        </div>
+      </div>
+
+      <div class="card shadow-sm border-0" style="border-radius: 15px;">
+        <div class="card-body">
+          <h6 class="fw-bold mb-3">⚙️ Actions</h6>
+          <div class="d-grid gap-2">
+            <a href="{% url 'update_salary' fonctionnaire.id %}" class="btn btn-sm btn-outline-primary">
+              <i class="bi bi-cash"></i> Update Salary
+            </a>
+            <a href="{% url 'update_promotion' fonctionnaire.id %}" class="btn btn-sm btn-outline-success">
+              <i class="bi bi-arrow-up-circle"></i> Promotion
+            </a>
+            <a href="{% url 'update_bonus' fonctionnaire.id %}" class="btn btn-sm btn-outline-warning">
+              <i class="bi bi-gift"></i> Add Bonus
+            </a>
+            <a href="{% url 'update_leave' fonctionnaire.id %}" class="btn btn-sm btn-outline-info">
+              <i class="bi bi-calendar-check"></i> Add Leave
+            </a>
+          </div>
+
+          <h6 class="fw-bold mt-4 mb-3">🖨 Print</h6>
+          <div class="d-grid gap-2">
+            <a href="{% url 'print_salary_slip' fonctionnaire.id %}" class="btn btn-sm btn-outline-secondary" target="_blank">
+              <i class="bi bi-file-earmark-text"></i> Salary Slip
+            </a>
+            <a href="{% url 'print_work_certificate' fonctionnaire.id %}" class="btn btn-sm btn-outline-secondary" target="_blank">
+              <i class="bi bi-file-earmark-pdf"></i> Work Certificate
+            </a>
+            <a href="{% url 'print_leave_certificate' fonctionnaire.id %}" class="btn btn-sm btn-outline-secondary" target="_blank">
+              <i class="bi bi-file-earmark-check"></i> Leave Certificate
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-9">
+      <div class="card shadow-sm border-0 mb-3" style="border-radius: 15px;">
+        <div class="card-body p-4">
+          <h4 class="fw-bold mb-4">Employee Information</h4>
+          <table class="table table-borderless">
+            <tr>
+              <th width="200">Social Security:</th>
+              <td>{{ fonctionnaire.ss }}</td>
+            </tr>
+            <tr>
+              <th>Last Name:</th>
+              <td>{{ fonctionnaire.nom }}</td>
+            </tr>
+            <tr>
+              <th>First Name:</th>
+              <td>{{ fonctionnaire.prenom }}</td>
+            </tr>
+            <tr>
+              <th>Grade:</th>
+              <td>{{ fonctionnaire.grade }}</td>
+            </tr>
+            <tr>
+              <th>Hire Date:</th>
+              <td>{{ fonctionnaire.date_rec|date:"F d, Y" }}</td>
+            </tr>
+            <tr>
+              <th>Status:</th>
+              <td>
+                {% if fonctionnaire.statut == "Actif" %}
+                <span class="badge bg-success">{{ fonctionnaire.statut }}</span>
+                {% else %}
+                <span class="badge bg-secondary">{{ fonctionnaire.statut }}</span>
+                {% endif %}
+              </td>
+            </tr>
+            <tr>
+              <th>Phone:</th>
+              <td>{{ fonctionnaire.telephone|default:"N/A" }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- History Tab -->
+      <div class="card shadow-sm border-0" style="border-radius: 15px;">
+        <div class="card-body p-4">
+          <h5 class="fw-bold mb-3">Recent History</h5>
+          {% if historique %}
+          <div class="table-responsive">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Action</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for h in historique %}
+                <tr>
+                  <td>{{ h.date_action|date:"M d, Y H:i" }}</td>
+                  <td><span class="badge bg-info">{{ h.type_action }}</span></td>
+                  <td>{{ h.details|truncatewords:10 }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="text-end">
+            <a href="{% url 'view_history' fonctionnaire.id %}" class="btn btn-sm btn-outline-primary">
+              View Full History <i class="bi bi-arrow-right"></i>
+            </a>
+          </div>
+          {% else %}
+          <p class="text-muted">No history records found.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

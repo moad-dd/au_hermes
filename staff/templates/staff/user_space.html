@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}User Space - AU HERMES{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="fw-bold mb-4">User Space - Manage Civil Servants</h2>
+
+  <!-- Search -->
+  <form method="GET" class="mb-4">
+    <div class="input-group">
+      <input type="text" name="q" class="form-control" placeholder="Search..." value="{{ query }}">
+      <button type="submit" class="btn btn-primary">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </form>
+
+  <!-- Table -->
+  <div class="card shadow-sm border-0" style="border-radius: 15px;">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>S.S</th>
+              <th>Last Name</th>
+              <th>First Name</th>
+              <th>Grade</th>
+              <th>Hire Date</th>
+              <th>Phone</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in users %}
+            <tr>
+              <td>{{ user.ss }}</td>
+              <td>{{ user.nom }}</td>
+              <td>{{ user.prenom }}</td>
+              <td>{{ user.grade }}</td>
+              <td>{{ user.date_rec|date:"Y-m-d" }}</td>
+              <td>{{ user.telephone|default:"-" }}</td>
+              <td>
+                <a href="{% url 'staff:edit_civil_servant' user.id %}?next=user_space" class="btn btn-sm btn-primary">
+                  <i class="bi bi-pencil"></i>
+                </a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="7" class="text-center text-muted py-4">No users found</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="{% url 'staff:add_civil_servant' %}" class="btn btn-success">
+      <i class="bi bi-plus-circle"></i> Add New Employee
+    </a>
+  </div>
+</div>
+{% endblock %}
