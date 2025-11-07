@@ -89,7 +89,7 @@ def add_civil_servant(request):
         'title': 'Add Civil Servant',
         'button_text': 'Add',
     }
-    return render(request, 'staff/civil_servant_form.html', context)
+    return render(request, 'employees/civil_servant_form.html', context)
 
 @login_required
 def edit_civil_servant(request, pk):
@@ -113,7 +113,7 @@ def edit_civil_servant(request, pk):
         'button_text': 'Update',
         'fonctionnaire': fonctionnaire,
     }
-    return render(request, 'staff/civil_servant_form.html', context)
+    return render(request, 'employees/civil_servant_form.html', context)
 
 @login_required
 def delete_civil_servant(request, pk):

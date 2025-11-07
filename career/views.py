@@ -21,7 +21,7 @@ def career_history(request):
         'employee': employee,
         'history': history,
     }
-    return render(request, 'career/career_history.html', context)
+    return render(request, 'employees/ats_space/career_history.html', context)
 
 
 @login_required

@@ -33,7 +33,7 @@ def leave_request(request):
         'form': form,
         'user_requests': user_requests,
     }
-    return render(request, 'leave_management/leave_request.html', context)
+    return render(request, 'employees/ats_space/leave_request.html', context)
 
 
 @login_required

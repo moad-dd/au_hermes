@@ -14,9 +14,9 @@ def salary_slip(request):
         employee = request.user.employee
     except Employee.DoesNotExist:
         return redirect('onboard_employee')
-    
+
     context = {'employee': employee}
-    return render(request, 'salary_management/salary_slip.html', context)
+    return render(request, 'employees/ats_space/salary_slip.html', context)
 
 
 @login_required
