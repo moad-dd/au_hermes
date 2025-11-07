@@ -38,4 +38,4 @@ Desktop.ini
 # Files you uploaded/created
 # Ignoring the file dump you provided, as it's not source code.
 project_dump.txt
-getAllProject.py # If you don't want to track this helper script
+getAllProject.py 
